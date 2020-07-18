@@ -28,7 +28,7 @@ public class BSTTest {
         System.out.println("---isExits---");
         System.out.println(tree.isExits(6));
         System.out.println("---delete---");
-        tree.delete(5);
+        System.out.println(tree.delete(12));
         tree.inorder();
 
 

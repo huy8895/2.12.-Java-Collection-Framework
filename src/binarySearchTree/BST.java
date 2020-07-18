@@ -174,23 +174,22 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         } else {
 
             if (inLeft) {
-                TreeNode<E> temp = parent.left;
                 parent.left = rightMost;
                 parentOfRightMost.right = leftChildOfRightMost;
                 rightMost.left = current.left;
                 rightMost.right = current.right;
 
             } else if (inRight) {
-                TreeNode<E> temp = parent.right;
                 parent.right = rightMost;
                 parentOfRightMost.right = leftChildOfRightMost;
                 rightMost.left = current.left;
                 rightMost.right = current.right;
+                return true;
             }
         }
 
 
-        return false;
+        return true;
     }
 
     public TreeNode<E> getMaxRight(TreeNode<E> root) {

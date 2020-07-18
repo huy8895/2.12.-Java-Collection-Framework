@@ -6,4 +6,6 @@ public interface Tree<E> {
     void inorder();
 
     int getSize();
+
+    void postOrder();
 }

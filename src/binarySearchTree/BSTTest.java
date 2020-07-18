@@ -14,6 +14,7 @@ public class BSTTest {
         tree.inorder();
         System.out.println("-------");
         tree.postOrder();
-
+        System.out.println("-------");
+        tree.preorder();
     }
 }

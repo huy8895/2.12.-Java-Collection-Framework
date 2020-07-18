@@ -10,4 +10,8 @@ public interface Tree<E> {
     void postOrder();
 
     void preorder();
+
+    boolean delete(E e);
+    
+    boolean isExits(E e);
 }

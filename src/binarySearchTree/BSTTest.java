@@ -11,10 +11,15 @@ public class BSTTest {
         tree.insert(5);
         tree.insert(7);
 
+        System.out.println("inorder");
         tree.inorder();
-        System.out.println("-------");
+        System.out.println("preorder");
+        tree.preorder();
+        System.out.println("postOrder");
         tree.postOrder();
         System.out.println("-------");
-        tree.preorder();
+        System.out.println(tree.isExits(6));
+
+
     }
 }

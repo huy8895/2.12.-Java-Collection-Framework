@@ -5,5 +5,5 @@ public interface Tree<E> {
 
     void inorder();
 
-    void getSize();
+    int getSize();
 }

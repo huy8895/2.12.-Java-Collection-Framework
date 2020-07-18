@@ -84,10 +84,6 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         preorder(root.right);
     }
 
-    @Override
-    public boolean delete(E e) {
-        return true;
-    }
 
     @Override
     public boolean isExits(E e) {
@@ -106,4 +102,109 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         return false;
 
     }
+
+    protected TreeNode<E> getParent(E e) {
+        if (!isExits(e))
+            return null;
+        TreeNode<E> current = root;
+        TreeNode<E> parent = null;
+        while (current != null) {
+            if (e.compareTo(current.element) < 0) {
+                parent = current;
+                current = current.left;
+            } else if (e.compareTo(current.element) > 0) {
+                parent = current;
+                current = current.right;
+            } else {
+                return parent;
+            }
+        }
+        return null;
+
+    }
+
+    protected TreeNode<E> getElement(E e) {
+        if (!isExits(e))
+            return null;
+        TreeNode<E> current = root;
+        while (current != null) {
+            if (e.compareTo(current.element) < 0) {
+                current = current.left;
+            } else if (e.compareTo(current.element) > 0) {
+                current = current.right;
+            } else {
+                return current;
+            }
+        }
+        return null;
+
+    }
+
+    @Override
+    public boolean delete(E e) {
+        if (!isExits(e))
+            return false;
+        if (e.compareTo(root.element) == 0) {
+            root = null;
+            return true;
+        }
+        TreeNode<E> parent = getParent(e);
+        TreeNode<E> current = getElement(e);
+        boolean inLeft = parent.element.compareTo(current.element) > 0;
+        boolean inRight = parent.element.compareTo(current.element) < 0;
+        boolean bothEmpty = current.right == null && current.left == null;
+        boolean leftEmpty = current.left == null;
+
+        TreeNode<E> rightMost = getMaxRight(current);
+        TreeNode<E> parentOfRightMost = getParent(rightMost.element);
+        TreeNode<E> leftChildOfRightMost = rightMost.left;
+
+
+        if (bothEmpty) {
+            if (inLeft) parent.left = null;
+            else if (inRight) parent.right = null;
+        } else if (leftEmpty) {
+            if (inLeft) {
+                parent.left = current.right;
+                return true;
+            } else if (inRight) {
+                parent.right = current.right;
+                return true;
+            }
+        } else {
+
+            if (inLeft) {
+                TreeNode<E> temp = parent.left;
+                parent.left = rightMost;
+                parentOfRightMost.right = leftChildOfRightMost;
+                rightMost.left = current.left;
+                rightMost.right = current.right;
+
+            } else if (inRight) {
+                TreeNode<E> temp = parent.right;
+                parent.right = rightMost;
+                parentOfRightMost.right = leftChildOfRightMost;
+                rightMost.left = current.left;
+                rightMost.right = current.right;
+            }
+        }
+
+
+        return false;
+    }
+
+    public TreeNode<E> getMaxRight(TreeNode<E> root) {
+        if (root == null) {
+            return null;
+        }
+
+        TreeNode<E> current = root;
+        TreeNode<E> max = root;
+        while (current.right != null) {
+            max = current.right;
+            current = current.right;
+        }
+        return max;
+    }
+
 }
